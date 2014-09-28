@@ -1,0 +1,90 @@
+body {
+    padding:0;
+    margin:0;
+    font-family:arial, helvetica, sans-serif;
+    font-size:12px;
+    
+}
+
+#content {
+    padding-bottom:3px;
+    padding-top:3px;
+    overflow:hidden;
+    width:100%;
+}
+
+
+.QuadRow
+{
+   -webkit-column-count:4;
+   -moz-column-count:4;
+   -ms-column-count:4;
+   column-count:4;
+   
+}
+
+.TriRow 
+{
+   -webkit-column-count:3;
+   -moz-column-count:3;
+   -ms-column-count:3;
+   column-count:3;
+}
+
+.BiRow 
+{
+   -webkit-column-count:2;
+   -moz-column-count:2;
+   -ms-column-count:2;
+   column-count:2;
+   text-align:center;
+}
+
+select{
+    width:100%;       
+}
+
+input
+{
+    width:95%;
+}
+
+label
+{
+      width:50%;
+      text-align:right;
+}
+
+.fa
+{
+   padding:1px;
+   font-size:14px;
+
+}
+
+.subDiv
+{
+  text-align:left;
+}
+
+legend
+{
+   text-align: center;
+    margin:1px;
+}
+
+.tripled
+{
+      width:33%;   
+}
+
+.paired
+{
+   width:50%;
+}
+
+fieldset
+{
+  text-align:center;
+  
+}

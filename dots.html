@@ -1,0 +1,4 @@
+<span  ng-keydown="onKeydown($event)" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="{{range.length}}" aria-valuenow="{{value}}">
+    <i ng-repeat="r in range track by $index"  ng-click="rate($index + 1)" class="fa" ng-class="$index < value ? r.stateOn : r.stateOff" >
+    </i>
+</span>

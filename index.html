@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html ng-app="WWCC">
+
+<head>
+
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+ 
+  
+   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.css" />
+   <link href="style.css" rel="stylesheet" />
+   <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+
+   
+   <script src="script.js"></script>
+   <script src="dots.js"></script>
+</head>
+
+<body>
+   <form>
+      <div id="content"  ng-init="setting=0; template=0">
+         <div id="top" class="QuadRow">
+            <span>
+            <input id="playerInput" placeholder="Player" />
+          </span>
+            <span>
+            <input id="memberInput" placeholder="Member #" />
+          </span>
+            <span>
+            <select id="chronicleSelect" ng-model="setting" >
+              <option value="0" ng-click="template = 0">Chronicle</option>
+              <option value="1">Exalted</option>
+              <option value="2">Accord</option>
+            </select>
+          </span>
+            <span>
+            <select id="templateSelect" ng-disabled="setting == 0" ng-model="template">
+              <option value="0" >Template</option>
+              <option value="1" ng-show="setting == 1">Solar</option>
+              <option value="2" ng-show="setting == 1">Abyssal</option>
+              <option value="3" ng-show="setting == 1">Infernal</option>
+              <option value="1" ng-show="setting == 2">Changeling</option>
+              <option value="2" ng-show="setting == 2">Hunter</option>
+              <option value="3" ng-show="setting == 2">Werewolf</option>
+              <option value="4" ng-show="setting == 2">Vampire</option>
+              <option value="5" ng-show="setting == 2">Geist</option>
+              <option value="6" ng-show="setting == 2">Mage</option>
+              <option value="7" ng-show="setting == 2">Mummy</option>
+            </select>
+          </span>
+         </div>
+         <div id="CharHeading" class="QuadRow" ng-style="{visibility: template > 0  && 'visible' || 'hidden'}">
+            <span>
+            <div>
+              <input  placeholder="Character" />
+            </div>
+            <div>
+              <input placeholder="Concept" />
+            </div>
+          </span>
+            <span>
+            <div>
+              <select>
+                <option value="0">Virtue</option>
+              </select>
+            </div>
+            <div>
+              <select>
+                <option value="0">Vice</option>
+              </select>
+            </div>
+          </span>
+            <span>
+            <div>
+              <select>
+                <option value="0">Splat</option>
+              </select>
+            </div>
+            <div>
+              <select>
+                <option value="0">Subsplat</option>
+              </select>
+            </div>
+          </span>
+            <span>
+            <div>
+              <select>
+                <option value="0">Faction</option>
+              </select>
+            </div>
+            <div>
+              <select>
+                <option value="0">Order</option>
+              </select>
+            </div>
+          </span>
+         </div>
+      
+         <fieldset id="attributes" ng-controller="AttrCtrl" >
+            <legend>Attributes</legend>
+               <div class="TriRow">
+               <fieldset>
+                  <legend>Mental</legend>
+                  <div ng-repeat="attr in mentalAttr track by $index">
+                     <label id="AttrlLbl{{attr.name}}">{{attr.name}}</label>
+                     <dots id="MentalAttrRating{{$index}}"  min="min" ng-model="attr.value" ng-click="checkMin($event, mentalAttr, $index)" ng-keypress ="checkMin($event, mentalAttr, $index)"> </dots>
+                  </div>
+               </fieldset>
+               <fieldset>
+                  <legend>Physical</legend>
+                  <div ng-repeat="attr in physicalAttr track by $index">
+                     <label id="AttrlLbl{{attr.name}}">{{attr.name}}</label>
+                     <dots id="PhysicalAttrRating{{$index}}" min="min" ng-model="attr.value" ng-click="checkMin($event, physicalAttr, $index)" ng-keypress="checkMin($event, physicalAttr, $index)"></dots>
+                  </div>
+               </fieldset>
+               <fieldset>
+                  <legend>Social</legend>
+                  <div ng-repeat="attr in socialAttr track by $index">
+                     <label id="AttrlLbl{{attr.name}}">{{attr.name}}</label>
+                     <dots id="SocialAttrRating{{$index}}"  min="min" ng-model="attr.value" ng-click="checkMin($event, socialAttr, $index)" ng-keypress="checkMin($event, socialAttr, $index)"></dots>
+                  </div>
+               </fieldset>
+               </div>
+         </fieldset>
+      
+         
+         <fieldset ng-controller="AdvCtrl">
+            <legend>Advantages</legend>
+         <div class="BiRow">
+         <fieldset >
+            <legend>Health</legend>
+            
+            <dots id="HealthRating" max="10"  readonly="true" ng-model="details.myHealth" ></dots>
+            <br>
+            <dots id="HealthPool" max="details.myHealth" readonly="true" ng-model="Health.Now" type="1"></dots>
+            
+         </fieldset>
+         <fieldset>
+            <legend>Willpower</legend>
+            <dots id="WillpowerRating" max="10" readonly="true" ng-model="details.myWillpower" ></dots>
+         <br>
+         <dots id="HealthPool" max="details.myWillpower" readonly="true" ng-model="Willpow.Now" type="1"></dots>
+         </fieldset>
+         <fieldset>
+            <legend>Power</legend>
+            <dots id="PowerRating" max="PowerStat.Max" min="PowerStat.Min" ng-model="PowerStat.Now"></dots>
+         </fieldset>
+         <fieldset>
+            <legend>Fuel</legend>
+            <dots id="FuelRating" max="PowerStat.Now+9" ng-model="Fuel.Now" type="1" readonly="true"  ></dots>
+         </fieldset>
+            </div>
+         </fieldset>
+         
+         <fieldset id="skills" ng-controller="SkillCtrl">
+            <legend>Skills</legend>
+               <div class="TriRow">
+               <fieldset>
+                  <legend>Mental</legend>
+                  <div ng-repeat="skill in mentalSkills">
+                     <label id="SkillLbl{{skill.name}}" class="tripled">{{skill.name}}</label>
+                     <input placeholder= "specialties" class="tripled"/>
+                     <dots id="MentalSkillRating{{$index}}" ng-model="skill.value" ></dots>
+                  </div>
+               </fieldset>
+               <fieldset>
+                  <legend>Physical</legend>
+                  <div ng-repeat="skill in physicalSkills">
+                     <label id="SkillLbl{{skill.name}}" class="tripled">{{skill.name}}</label>
+                     <input placeholder= "specialties" class="tripled"/>
+                     <dots id="PhysicalSkillRating{{$index}}" ng-model="skill.value" ></dots>
+                  </div>
+               </fieldset>
+               <fieldset>
+                  <legend>Social</legend>
+                  <div ng-repeat="skill in socialSkills" >
+                     <label id="SkillLbl{{skill.name}}" class="tripled">{{skill.name}}</label>
+                     <input placeholder= "specialties" class="tripled"/>
+                     <dots id="SocialSkillRating{{$index}}" ng-model="skill.value" ></dots>
+                  </div>
+               </fieldset>
+            </div>
+         </fieldset>
+         <fieldset ng-controller="TraitsCtrl" >
+         <legend>Traits</legend>
+         <div class="BiRow">
+         <fieldset>
+            <legend>Merits</legend>
+            <div ng-repeat="merit in meritsTaken track by $index" >
+                     <input placeholder= "Merit" class="paired" ngModel="merit.name"/>
+                     <dots id="MeritRating{{$index}}"  ng-model="merit.value" ></dots>
+                  </div>
+         </fieldset>
+         <fieldset>
+            <legend>Powers</legend>
+            <div ng-repeat="power in powersTaken track by $index" >
+                     <input placeholder= "Power" class="paired" ngModel="power.name"/>
+                     <dots id="PowerRating{{$index}}"  ng-model="power.value"></dots>
+                  </div>
+         </fieldset>
+         </div>
+         </fieldset>
+      </div>
+   </form>
+</body>
+
+</html>
